@@ -17,7 +17,7 @@ class MyCommand extends Command {
         };
     }
 
-    run(message, args) {
+    async run(message, args) {
         if(!utils.check(message, 2))
             return utils.error(message, 'INVALID_USER_TIER', { tier: this.customOptions.tier });
 
@@ -29,7 +29,23 @@ class MyCommand extends Command {
         if(!reason)
             reason = 'Не указана';
 
-        utils.collector(message, args, this.options.name, { member, reason });
+        const m = await message.channel.send({ embed: { color: 0xFFFF00, description: `:warning: Подтвердите действие: блокировка пользователя ${member} (ID: ${member.user.id}) по причине **${reason}**` } });
+        await m.react('✅');
+        await m.react('❌');
+            
+        const filter = (reaction, user) => (['✅', '❌'].includes(reaction.emoji.name) && user.id == message.author.id);
+        const collector = m.createReactionCollector(filter, { time: 15000 });
+            
+        collector.on('collect', (reaction) => {
+            m.clearReactions();
+            if(reaction.emoji.name == '✅') {
+                m.edit({ embed: { color: 0x7289DA, description: `:white_check_mark: ${member} (ID: ${member.user.id}) был забанен на сервере по причине **${reason}**` } });
+                member.ban(reason);
+                return collector.stop();
+            } else {
+                m.edit({ embed: { color: 0xFF0000, description: `:x: Действие отменено: блокировка пользователя ${member} (ID: ${member.user.id}) по причине **${reason}**` } });
+            }
+        });
     }
 };
 
