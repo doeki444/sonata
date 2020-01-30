@@ -19,11 +19,11 @@ module.exports = {
     error: (message, code, args) => {
         switch (code) {
             case 'INVALID_USER_TIER':
-                message.channel.send({ embed: { color: 0xFF0000, description: `:x: У Вас недостаточно прав для совершения данного действия.\nНеобходимое право: **${tiers[args.tier]}**` } });
+                message.channel.send({ embed: { color: 0xFF0000, description: `:x: У Вас недостаточно прав для совершения данного действия.`, fields: [{ title: "Необходимое право", description: `**${tiers[args.tier]}**`, inline: true }] } });
                 break;
 
             case 'NO_ARGS':
-                message.channel.send({ embed: { color: 0xFF0000, description: `:x: Указано недостаточно аргументов.\nПравильное использование команды: \`${args.usage}\`` } });
+                message.channel.send({ embed: { color: 0xFF0000, description: `:x: Указано недостаточно аргументов.` }, fields: [{ title: "Правильное использование команды", description: `\`${args.usage}\``, inline: true }] });
                 break;
         
             default:

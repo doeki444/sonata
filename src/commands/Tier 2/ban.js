@@ -29,23 +29,13 @@ class MyCommand extends Command {
         if(!reason)
             reason = 'Не указана';
 
-        const m = await message.channel.send({ embed: { color: 0xFFFF00, description: `:warning: Подтвердите действие: блокировка пользователя ${member} (ID: ${member.user.id}) по причине **${reason}**` } });
-        await m.react('✅');
-        await m.react('❌');
-            
-        const filter = (reaction, user) => (['✅', '❌'].includes(reaction.emoji.name) && user.id == message.author.id);
-        const collector = m.createReactionCollector(filter, { time: 15000 });
-            
-        collector.on('collect', (reaction) => {
-            m.clearReactions();
-            if(reaction.emoji.name == '✅') {
-                m.edit({ embed: { color: 0x7289DA, description: `:white_check_mark: ${member} (ID: ${member.user.id}) был забанен на сервере по причине **${reason}**` } });
+        member.send(`:warning: Вы заблокированы на сервере **${message.guild.name}** модератором **${message.author.tag}** (ID: ${message.author.id}).\nПричина:\`\`\`${reason}\`\`\``)
+            .then(() => {
                 member.ban(reason);
-                return collector.stop();
-            } else {
-                m.edit({ embed: { color: 0xFF0000, description: `:x: Действие отменено: блокировка пользователя ${member} (ID: ${member.user.id}) по причине **${reason}**` } });
-            }
-        });
+                return message.channel.send({ embed: { color: 0x00FF00, description: `:white_check_mark: ${message.author} заблокировал ${member} (ID: ${member.user.id}) на сервере.`, fields: [{ title: 'Причина', description: `${reason}\n\n\`У пользователя закрыты личные сообщения.\`` }] } });
+            }).catch(() => {
+                return message.channel.send({ embed: { color: 0x00FF00, description: `:white_check_mark: ${message.author} заблокировал ${member} (ID: ${member.user.id}) на сервере.`, fields: [{ title: 'Причина', description: `${reason}\n\n\`У пользователя закрыты личные сообщения.\`` }] } });
+            });
     }
 };
 
