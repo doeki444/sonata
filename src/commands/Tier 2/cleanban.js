@@ -5,9 +5,10 @@ class MyCommand extends Command {
     get options() {
         return {
             enabled: true,
-            name: 'ban',
-            description: 'Забанить пользователя',
-            usage: '<@user/ID> [причина]'
+            name: 'cleanban',
+            aliases: ['softban'],
+            description: 'Забанить пользователя и очистить его сообщения',
+            usage: '<@user/ID> [кол-во дней] [причина]'
         };
     }
 
@@ -34,31 +35,43 @@ class MyCommand extends Command {
         if(member.user.bot == true)
             return utils.error(message, 'USER_HAS_YOUR_TIER', { message: `Вы указали бота.` });
 
-        let reason = args.slice(1).join(' ');
+        let cleanDays = Number(args.slice(1).join(' '));
+        if(!cleanDays)
+            cleanDays = 1;
+
+        let reason = args.slice(2).join(' ');
         if(!reason)
             reason = 'Не указана';
 
         member.send(`:warning: Вы заблокированы на сервере **${message.guild.name}** модератором **${message.author.tag}** (ID: ${message.author.id}).\nПричина:\`\`\`${reason}\`\`\``)
             .then(() => {
-                member.ban(`${message.author.tag} | ${reason}`).catch(() => {
+                member.ban({
+                    days: cleanDays,
+                    reason: `${message.author.tag} | ${reason}`
+                }).catch(() => {
                     message.channel.send(`:x: Невозможно выполнить данное действие. Возможно у бота нет прав на выполнение таких действий.`);
                 });
-                
+
                 let embed = new Embed()
                     .setColor('#00FF00')
                     .setDescription(`:white_check_mark: ${message.author} заблокировал ${member} (ID: ${member.user.id}) на сервере.`)
-                    .addField('Причина', reason);
+                    .addField('Причина', reason)
+                    .addField('Количество дней за которое удалены сообщения', `${cleanDays} ${utils.fridaySnippet(cleanDays, 'день', 'дня', 'дней')}`);
 
                 return message.channel.send(embed);
             }).catch(() => {
-                member.ban(`${message.author.tag} | ${reason}`).catch(() => {
+                member.ban({
+                    days: cleanDays,
+                    reason: `${message.author.tag} | ${reason}`
+                }).catch(() => {
                     message.channel.send(`:x: Невозможно выполнить данное действие. Возможно у бота нет прав на выполнение таких действий.`);
                 });
 
                 let embed = new Embed()
                     .setColor('#00FF00')
                     .setDescription(`:white_check_mark: ${message.author} заблокировал ${member} (ID: ${member.user.id}) на сервере.`)
-                    .addField('Причина', `${reason}\n\n\`У пользователя закрыты личные сообщения.\``);
+                    .addField('Причина', `${reason}\n\n\`У пользователя закрыты личные сообщения.\``)
+                    .addField('Количество дней за которое удалены сообщения', `${cleanDays} ${utils.fridaySnippet(cleanDays, 'день', 'дня', 'дней')}`);
 
                 return message.channel.send(embed);
             });
