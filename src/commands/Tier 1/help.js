@@ -23,7 +23,7 @@ class MyCommand extends Command {
                 .setColor('#7289DA')
                 .setAuthor(this.client.user.username, this.client.user.displayAvatarURL)
                 .setTitle("Доступные команды")
-                .addField(`Прочая информация`, `[• Open-Source](https://github.com/vladciphersky/sonata) | [• Discord](https://discord.gg/kHXvVkt)`);
+                .addField(`Прочая информация`, `[• Open-Source](https://github.com/vladciphersky/sonata) | [• Discord](https://discord.gg/kHXvVkt) | [• Invite](https://discordapp.com/api/oauth2/authorize?client_id=672406367344132116&permissions=8&scope=bot)`);
 
             let list = '';
             this.client.commands.filter((command) => command.customOptions.tier !== 4).forEach((command) => list += `\`${this.client.prefix}${command.name}${(command.usage == null ? '' : ` ${command.usage}`)}\` | ${command.description}\n`);
