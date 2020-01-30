@@ -1,4 +1,6 @@
 const { Embed } = require('discore.js');
+const ms = require('ms');
+
 var tiers = {
     1: 'USER',
     2: 'MODERATOR',
@@ -8,6 +10,7 @@ var tiers = {
 
 module.exports = {
     tiers: tiers,
+    toMS: (arg) => ms(arg),
     fridaySnippet: (number, one, two, five) => {
         number = Math.abs(number);
         number %= 100;
@@ -61,7 +64,7 @@ module.exports = {
                 break;
         
             default:
-                return message.channel.send({ embed: { color: 0xFF0000, description: `:x: Произошла неизвестная ошибка, лол. Обратитесь к пользователю с правом **${tiers[4]}**.` } });
+                return message.channel.send({ embed: { color: 0xFF0000, description: `:x: Произошла неизвестная ошибка, лол.\nОбратитесь с такой ошибкой на сервер тех. поддержки.` } });
                 break;
         }
     }

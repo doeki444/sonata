@@ -35,7 +35,7 @@ class MyCommand extends Command {
         if(member.user.bot == true)
             return utils.error(message, 'USER_HAS_YOUR_TIER', { message: `Вы указали бота.` });
 
-        let cleanDays = Number(args.slice(1).join(' '));
+        let cleanDays = parseInt(args.slice(1).join(' '));
         if(!cleanDays)
             cleanDays = 1;
 
