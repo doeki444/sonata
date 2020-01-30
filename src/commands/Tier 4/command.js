@@ -18,7 +18,7 @@ class MyCommand extends Command {
     }
 
     run(message, args) {
-        if(!utils.check(message, 4))
+        if(!utils.check(message.member, 4))
             return utils.error(message, 'INVALID_USER_TIER', { tier: this.customOptions.tier });
 
         const command = args.shift(" ");
