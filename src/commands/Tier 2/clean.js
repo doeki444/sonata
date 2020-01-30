@@ -32,7 +32,7 @@ class MyCommand extends Command {
         const userArg = args.shift();
         const user = message.guild.member(message.mentions.users.first() || message.guild.members.get(userArg));
         
-        if(user && utils.check(user, 2) == true || utils.check(user, 3) == true)
+        if(user && (utils.check(user, 2) == true || utils.check(user, 3) == true))
             return utils.error(message, 'USER_HAS_YOUR_TIER', { message: `Вы выбрали пользователя с правом **${utils.tiers[2]}**/**${utils.tiers[3]}**.` });
 
         if(user && user.id == message.author.id)
@@ -52,7 +52,7 @@ class MyCommand extends Command {
             deleted += messages.length;
         }
         
-        const displayText = utils.fridaySnippet(deleted, 'сообщение', 'сообщения', 'сообщений');
+        const displayText = utils.fridaySnippet(amount, 'сообщение', 'сообщения', 'сообщений');
         let embed = new Embed()
             .setColor('#00FF00')
             .setDescription(`:white_check_mark: ${message.author} очистил чат${user ? ` от сообщений пользователя ${user} (ID: ${user.user.id})` : ''}.`)
