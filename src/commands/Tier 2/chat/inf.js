@@ -29,7 +29,7 @@ class MyCommand extends Command {
             return utils.error(message, 'NO_ARGS', { usage: `${this.client.prefix + this.options.name} ${this.options.usage}` });
         else {
             if(command == "info") {
-                let id = parseInt(args[0]);
+                let id = args[0];
                 if(!id)
                     return utils.error(message, 'NO_ARGS', { usage: `${this.client.prefix + this.options.name} ${this.options.usage}` });
                 
@@ -51,7 +51,7 @@ class MyCommand extends Command {
             }
 
             if(command == "update") {
-                let id = parseInt(args[0]);
+                let id = args[0];
                 if(!id)
                     return utils.error(message, 'NO_ARGS', { usage: `${this.client.prefix + this.options.name} ${this.options.usage}` });
                 
@@ -76,7 +76,7 @@ class MyCommand extends Command {
             }
 
             if(command == "delete") {
-                let id = parseInt(args[0]);
+                let id = args[0];
                 if(!id)
                     return utils.error(message, 'NO_ARGS', { usage: `${this.client.prefix + this.options.name} ${this.options.usage}` });
                 
