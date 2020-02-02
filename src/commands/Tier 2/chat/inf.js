@@ -41,8 +41,9 @@ class MyCommand extends Command {
                 
                 let embed = new Embed()
                     .setColor('#00FF00')
-                    .setTitle(`Предупреждение #${id}`)
+                    .setTitle(`Предупреждение | ${id}`)
                     .addField("Нарушитель", message.guild.members.get(warn.info.member))
+                    .setThumbnail(message.guild.members.get(warn.info.member).user.displayAvatarURL)
                     .addField("Модератор", message.guild.members.get(warn.moder))
                     .addField("Причина", warn.reason)
                     .addField("Дата выдачи", utils.date(warn.time).locale("ru").format("LLL"));
@@ -70,7 +71,7 @@ class MyCommand extends Command {
 
                 let embed = new Embed()
                     .setColor('#00FF00')
-                    .setDescription(`:white_check_mark: Предупреждение #${id} было обновлено модератором ${message.author}.\nНовая причина: **${newReason}**`);
+                    .setDescription(`:white_check_mark: Предупреждение \`${id}\` было обновлено модератором ${message.author}.\nНовая причина: **${newReason}**`);
         
                 return message.channel.send(embed);
             }
@@ -90,7 +91,7 @@ class MyCommand extends Command {
 
                 let embed = new Embed()
                     .setColor('#00FF00')
-                    .setDescription(`:white_check_mark: Предупреждение #${id} было удалено модератором ${message.author}.\nНовая причина: **${newReason}**`);
+                    .setDescription(`:white_check_mark: Предупреждение \`${id}\` было удалено модератором ${message.author}.\nНовая причина: **${newReason}**`);
         
                 return message.channel.send(embed);
             }
