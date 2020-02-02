@@ -91,7 +91,7 @@ class MyCommand extends Command {
 
                 let embed = new Embed()
                     .setColor('#00FF00')
-                    .setDescription(`:white_check_mark: Предупреждение \`${id}\` было удалено модератором ${message.author}.\nНовая причина: **${newReason}**`);
+                    .setDescription(`:white_check_mark: Предупреждение \`${id}\` было удалено модератором ${message.author}.`);
         
                 return message.channel.send(embed);
             }
