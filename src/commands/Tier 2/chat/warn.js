@@ -42,7 +42,7 @@ class MyCommand extends Command {
         this.client.my.db.warns[utils.generateID(8)] = {
             info: { guild: message.guild.id, member: member.id },
             moder: message.author.id,
-            time: timeNow,
+            time: Date.now(),
             reason: reason
         };
 
