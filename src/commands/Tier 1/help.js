@@ -23,8 +23,7 @@ class MyCommand extends Command {
             let embed = new Embed()
                 .setColor('#7289DA')
                 .setAuthor(this.client.user.username, this.client.user.displayAvatarURL)
-                .setTitle("Доступные команды")
-                .addField(`Прочая информация`, `[• Open-Source](https://sonata.org.ru/github) | [• Discord](https://sonata.org.ru/discord) | [• Invite](https://sonata.org.ru/invite)`);
+                .setTitle("Доступные команды");
 
             let commands = {
                 moderation: '',
@@ -42,13 +41,14 @@ class MyCommand extends Command {
             this.client.commands.filter((command) => command.customOptions.category == "games").forEach((command) => commands.games += `\`${this.client.prefix}${command.name}${(command.usage == null ? '' : ` ${command.usage}`)}\` | ${command.description}\n`);
             this.client.commands.filter((command) => command.customOptions.category == "other").forEach((command) => commands.other += `\`${this.client.prefix}${command.name}${(command.usage == null ? '' : ` ${command.usage}`)}\` | ${command.description}\n`);
 
-            embed.addField('Модерация', commands.moderation || "Команд в данной категории нет, либо они ещё разрабатываются. :/");
-            embed.addField('Музыка', commands.music || "Команд в данной категории нет, либо они ещё разрабатываются. :/");
-            embed.addField('Экономика', commands.economy || "Команд в данной категории нет, либо они ещё разрабатываются. :/");
-            embed.addField('Реакции', commands.reactions || "Команд в данной категории нет, либо они ещё разрабатываются. :/");
-            embed.addField('Игры', commands.games || "Команд в данной категории нет, либо они ещё разрабатываются. :/");
-            embed.addField('Прочее', commands.other || "Команд в данной категории нет, либо они ещё разрабатываются. :/");
+            if(commands.moderation) embed.addField('Модерация', commands.moderation);
+            if(commands.music) embed.addField('Музыка', commands.music);
+            if(commands.economy) embed.addField('Экономика', commands.economy);
+            if(commands.reactions) embed.addField('Реакции', commands.reactions);
+            if(commands.games) embed.addField('Игры', commands.games);
+            if(commands.other) embed.addField('Прочее', commands.other);
 
+            embed.addField(`Прочая информация`, `[• Open-Source](https://sonata.org.ru/github) | [• Discord](https://sonata.org.ru/discord) | [• Invite](https://sonata.org.ru/invite)`);
             return message.channel.send(embed);
         } else {
             let command = this.client.commands.get(args.join(" "));
