@@ -1,4 +1,3 @@
-const 
 const { Embed } = require('discore.js');
 
 var tiers = {
