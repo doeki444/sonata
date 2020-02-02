@@ -24,9 +24,9 @@ class MyCommand extends Command {
             member = message.guild.member(message.guild.members.get(message.author.id));
 
         let warns = '';
-        Object.keys(this.client.my.db.warns).forEach((key) => {
+        Object.keys(this.client.my.db.warns).forEach((key, i) => {
             if(this.client.my.db.warns[key].info.member == member.user.id)
-                warns += `\`#${key}\` ${this.client.my.db.warns[key].reason}\n`;
+                warns += `\`${i+1} ${key}\` ${this.client.my.db.warns[key].reason}\n`;
         });
 
         let embed = new Embed()
