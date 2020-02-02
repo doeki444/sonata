@@ -24,7 +24,7 @@ class MyCommand extends Command {
                 .setColor('#7289DA')
                 .setAuthor(this.client.user.username, this.client.user.displayAvatarURL)
                 .setTitle("Доступные команды")
-                .addField(`Прочая информация`, `[• Open-Source](https://github.com/vladciphersky/sonata) | [• Discord](https://discord.gg/kHXvVkt) | [• Invite](https://discordapp.com/api/oauth2/authorize?client_id=672406367344132116&permissions=8&scope=bot)`);
+                .addField(`Прочая информация`, `[• Open-Source](https://sonata.org.ru/github) | [• Discord](https://sonata.org.ru/discord) | [• Invite](https://sonata.org.ru/invite)`);
 
             let commands = {
                 moderation: '',
