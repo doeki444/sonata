@@ -1,3 +1,4 @@
+const 
 const { Embed } = require('discore.js');
 
 var tiers = {
@@ -11,6 +12,15 @@ module.exports = {
     tiers: tiers,
     toMS: require('ms'),
     date: require('moment'),
+    generateID: (length) => {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+           result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    },
     fridaySnippet: (number, one, two, five) => {
         number = Math.abs(number);
         number %= 100;

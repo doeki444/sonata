@@ -13,7 +13,8 @@ class MyCommand extends Command {
 
     get customOptions() {
         return {
-            tier: 1
+            tier: 1,
+            category: 'other'
         };
     }
 
@@ -30,7 +31,8 @@ class MyCommand extends Command {
                 music: '',
                 economy: '',
                 reactions: '',
-                games: ''
+                games: '',
+                other: ''
             };
 
             this.client.commands.filter((command) => command.customOptions.category == "moderation").forEach((command) => commands.moderation += `\`${this.client.prefix}${command.name}${(command.usage == null ? '' : ` ${command.usage}`)}\` | ${command.description}\n`);
@@ -38,16 +40,21 @@ class MyCommand extends Command {
             this.client.commands.filter((command) => command.customOptions.category == "economy").forEach((command) => commands.economy += `\`${this.client.prefix}${command.name}${(command.usage == null ? '' : ` ${command.usage}`)}\` | ${command.description}\n`);
             this.client.commands.filter((command) => command.customOptions.category == "reactions").forEach((command) => commands.reactions += `\`${this.client.prefix}${command.name}${(command.usage == null ? '' : ` ${command.usage}`)}\` | ${command.description}\n`);
             this.client.commands.filter((command) => command.customOptions.category == "games").forEach((command) => commands.games += `\`${this.client.prefix}${command.name}${(command.usage == null ? '' : ` ${command.usage}`)}\` | ${command.description}\n`);
-            
+            this.client.commands.filter((command) => command.customOptions.category == "other").forEach((command) => commands.other += `\`${this.client.prefix}${command.name}${(command.usage == null ? '' : ` ${command.usage}`)}\` | ${command.description}\n`);
+
             embed.addField('Модерация', commands.moderation || "Команд в данной категории нет, либо они ещё разрабатываются. :/");
             embed.addField('Музыка', commands.music || "Команд в данной категории нет, либо они ещё разрабатываются. :/");
             embed.addField('Экономика', commands.economy || "Команд в данной категории нет, либо они ещё разрабатываются. :/");
             embed.addField('Реакции', commands.reactions || "Команд в данной категории нет, либо они ещё разрабатываются. :/");
             embed.addField('Игры', commands.games || "Команд в данной категории нет, либо они ещё разрабатываются. :/");
+            embed.addField('Прочее', commands.other || "Команд в данной категории нет, либо они ещё разрабатываются. :/");
 
             return message.channel.send(embed);
         } else {
             let command = this.client.commands.get(args.join(" "));
+            if(!command)
+                return utils.error(message, 'USER_HAS_YOUR_TIER', { message: 'Данной команды не существует.' });
+
             let categories = {
                 moderation: 'Модерация',
                 music: 'Музыка',

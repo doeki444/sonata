@@ -29,7 +29,7 @@ class MyCommand extends Command {
             return utils.error(message, 'NO_ARGS', { usage: `${this.client.prefix + this.options.name} ${this.options.usage}` });
         else {
             if(command == "info") {
-                let id = parseInt(args.join(" "));
+                let id = parseInt(args[0]);
                 if(!id)
                     return utils.error(message, 'NO_ARGS', { usage: `${this.client.prefix + this.options.name} ${this.options.usage}` });
                 
@@ -50,8 +50,8 @@ class MyCommand extends Command {
                 return message.channel.send(embed);
             }
 
-            /* if(command == "update") { // NOT COMPLETE
-                let id = parseInt(args.join(" "));
+            if(command == "update") {
+                let id = parseInt(args[0]);
                 if(!id)
                     return utils.error(message, 'NO_ARGS', { usage: `${this.client.prefix + this.options.name} ${this.options.usage}` });
                 
@@ -61,15 +61,22 @@ class MyCommand extends Command {
                 if(warn.info.guild !== message.guild.id)
                     return utils.error(message, 'USER_HAS_YOUR_TIER', { message: 'Данного предупреждения в базе не найдено.' });
                 
+                let newReason = args.slice(1).join(" ");
+                if(!newReason)
+                    newReason = 'Не указана';
+
+                this.client.my.db.warns[id].reason = newReason;
+                this.client.my.db.warns[id].moder = message.author.id;
+
                 let embed = new Embed()
                     .setColor('#00FF00')
-                    .setDescription(`:white_check_mark: Предупреждение #${id}`);
+                    .setDescription(`:white_check_mark: Предупреждение #${id} было обновлено модератором ${message.author}.\nНовая причина: **${newReason}**`);
         
                 return message.channel.send(embed);
             }
 
-            if(command == "info") { // NOT COMPLETE
-                let id = parseInt(args.join(" "));
+            if(command == "delete") {
+                let id = parseInt(args[0]);
                 if(!id)
                     return utils.error(message, 'NO_ARGS', { usage: `${this.client.prefix + this.options.name} ${this.options.usage}` });
                 
@@ -79,16 +86,14 @@ class MyCommand extends Command {
                 if(warn.info.guild !== message.guild.id)
                     return utils.error(message, 'USER_HAS_YOUR_TIER', { message: 'Данного предупреждения в базе не найдено.' });
                 
+                delete this.client.my.db.warns[id];
+
                 let embed = new Embed()
                     .setColor('#00FF00')
-                    .setTitle(`Предупреждение #${id}`)
-                    .addField("Нарушитель", message.guild.members.get(warn.info.member))
-                    .addField("Модератор", message.guild.members.get(warn.moder))
-                    .addField("Причина", warn.reason)
-                    .addField("Дата выдачи", utils.date(warn.time).locale("ru").format("LLL"));
+                    .setDescription(`:white_check_mark: Предупреждение #${id} было удалено модератором ${message.author}.\nНовая причина: **${newReason}**`);
         
                 return message.channel.send(embed);
-            } */
+            }
         }
     }
 };

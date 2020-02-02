@@ -39,7 +39,7 @@ class MyCommand extends Command {
         if(!reason)
             reason = 'Не указана';
 
-        this.client.my.db.warns[`${message.guild.id}-${member.id}`] = {
+        this.client.my.db.warns[utils.generateID(8)] = {
             info: { guild: message.guild.id, member: member.id },
             moder: message.author.id,
             time: timeNow,
