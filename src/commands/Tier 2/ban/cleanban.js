@@ -1,4 +1,4 @@
-const utils = require('../../utils.js');
+const utils = require('../../../utils.js');
 const { Embed, Command } = require('discore.js');
 
 class MyCommand extends Command {
@@ -14,7 +14,8 @@ class MyCommand extends Command {
 
     get customOptions() {
         return {
-            tier: 2
+            tier: 2,
+            category: 'moderation'
         };
     }
 

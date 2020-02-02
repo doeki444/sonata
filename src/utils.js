@@ -1,5 +1,4 @@
 const { Embed } = require('discore.js');
-const ms = require('ms');
 
 var tiers = {
     1: 'USER',
@@ -10,7 +9,8 @@ var tiers = {
 
 module.exports = {
     tiers: tiers,
-    toMS: (arg) => ms(arg),
+    toMS: require('ms'),
+    date: require('moment'),
     fridaySnippet: (number, one, two, five) => {
         number = Math.abs(number);
         number %= 100;

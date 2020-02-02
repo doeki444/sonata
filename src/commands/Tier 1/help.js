@@ -25,22 +25,46 @@ class MyCommand extends Command {
                 .setTitle("Доступные команды")
                 .addField(`Прочая информация`, `[• Open-Source](https://github.com/vladciphersky/sonata) | [• Discord](https://discord.gg/kHXvVkt) | [• Invite](https://discordapp.com/api/oauth2/authorize?client_id=672406367344132116&permissions=8&scope=bot)`);
 
-            let list = '';
-            this.client.commands.filter((command) => command.customOptions.tier !== 4).forEach((command) => list += `\`${this.client.prefix}${command.name}${(command.usage == null ? '' : ` ${command.usage}`)}\` | ${command.description}\n`);
+            let commands = {
+                moderation: '',
+                music: '',
+                economy: '',
+                reactions: '',
+                games: ''
+            };
 
-            embed.setDescription(list);
+            this.client.commands.filter((command) => command.customOptions.category == "moderation").forEach((command) => commands.moderation += `\`${this.client.prefix}${command.name}${(command.usage == null ? '' : ` ${command.usage}`)}\` | ${command.description}\n`);
+            this.client.commands.filter((command) => command.customOptions.category == "music").forEach((command) => commands.music += `\`${this.client.prefix}${command.name}${(command.usage == null ? '' : ` ${command.usage}`)}\` | ${command.description}\n`);
+            this.client.commands.filter((command) => command.customOptions.category == "economy").forEach((command) => commands.economy += `\`${this.client.prefix}${command.name}${(command.usage == null ? '' : ` ${command.usage}`)}\` | ${command.description}\n`);
+            this.client.commands.filter((command) => command.customOptions.category == "reactions").forEach((command) => commands.reactions += `\`${this.client.prefix}${command.name}${(command.usage == null ? '' : ` ${command.usage}`)}\` | ${command.description}\n`);
+            this.client.commands.filter((command) => command.customOptions.category == "games").forEach((command) => commands.games += `\`${this.client.prefix}${command.name}${(command.usage == null ? '' : ` ${command.usage}`)}\` | ${command.description}\n`);
+            
+            embed.addField('Модерация', commands.moderation || "Команд в данной категории нет, либо они ещё разрабатываются. :/");
+            embed.addField('Музыка', commands.music || "Команд в данной категории нет, либо они ещё разрабатываются. :/");
+            embed.addField('Экономика', commands.economy || "Команд в данной категории нет, либо они ещё разрабатываются. :/");
+            embed.addField('Реакции', commands.reactions || "Команд в данной категории нет, либо они ещё разрабатываются. :/");
+            embed.addField('Игры', commands.games || "Команд в данной категории нет, либо они ещё разрабатываются. :/");
+
             return message.channel.send(embed);
         } else {
             let command = this.client.commands.get(args.join(" "));
+            let categories = {
+                moderation: 'Модерация',
+                music: 'Музыка',
+                economy: 'Экономика',
+                reactions: 'Реакции',
+                games: 'Игры'
+            };
+
             let embed = new Embed()
                 .setColor('#7289DA')
                 .setAuthor(this.client.user.username, this.client.user.displayAvatarURL)
                 .setTitle(`Команда ${command.name}`)
-                .addField(`Работает?`, `Да`, true)
-                .addField('Уровень доступа', utils.tiers[command.customOptions.tier], true)
-                .addField('Использование', `\`${this.client.prefix}${command.name}${(command.usage == null ? '' : ` ${command.usage}`)}\``, true)
                 .setDescription(command.description)
-                .addField('Другие триггеры команды', `\`${command.aliases.join("`, `")}\``, true);
+                .addField(`Работает?`, (command.enabled) ? ":white_check_mark: Да" : ":x: Нет", true)
+                .addField('Категория', categories[сommand.customOptions.category] || "Отсутствует", true)
+                .addField('Использование', `\`${this.client.prefix}${command.name}${(command.usage == null ? '' : ` ${command.usage}`)}\``, true)
+                .addField('Другие триггеры команды', `[\`${command.aliases.join("`, `") || '<отсутствуют>'}\`]`, true);
 
             return message.channel.send(embed);
         }
