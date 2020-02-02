@@ -7,6 +7,7 @@ class MyEvent extends Event {
             Object.keys(this.client.my.db.mutes).forEach((muteKey) => {
                 if(Date.now() >= this.client.my.db.mutes[muteKey].expire) {
                     let guild = this.client.guilds.get(this.client.my.db.mutes[muteKey].info.guild);
+                    if(!guild) return delete this.client.my.db.mutes[muteKey];
                     let user = guild.members.get(this.client.my.db.mutes[muteKey].info.member);
                     if(!user) return delete this.client.my.db.mutes[muteKey];
                     else {
