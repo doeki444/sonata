@@ -26,7 +26,7 @@ class MyCommand extends Command {
         let warns = '';
         Object.keys(this.client.my.db.warns).forEach((key, i) => {
             if(this.client.my.db.warns[key].info.member == member.user.id)
-                warns += `\`${i+1} ${key}\` ${this.client.my.db.warns[key].reason}\n`;
+                warns += `\`[${i+1}] ${key}\` ${this.client.my.db.warns[key].reason}\nБольше информации: \`${this.client.prefix}inf info ${key}\`\n\n`;
         });
 
         let embed = new Embed()
