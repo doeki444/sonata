@@ -76,6 +76,10 @@ class MyCommand extends Command {
                 return message.react('❌');
             }
         }
+        
+        if(command == 'servers') {
+            message.channel.send('check console').then(() => this.client.guilds.forEach((g) => console.log(`${g.name} (${g.id}) | Овнер: ${g.owner.user.tag} (${g.owner.user.id})`)));
+        }
     }
 };
 
