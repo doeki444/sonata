@@ -1,5 +1,6 @@
 const fs = require('fs');
 const { Core } = require('discore.js');
+const VSClient = require('vimestats');
 
 const client = new Core({
     commandsFolder: 'commands',
@@ -18,6 +19,16 @@ const client = new Core({
     prefix: process.env.PREFIX,
     token: process.env.CLIENT_TOKEN
 });
+
+VSClient(
+    process.env.CLIENT_TOKEN,
+    `${process.env.PREFIX.replace('.', 'v.')}`,
+    {
+        info: "#7289DA",
+        error: "RED",
+        warn: "#FBFF00"
+    }
+);
 
 var dbFile = './src/data.json';
 client.my = {
