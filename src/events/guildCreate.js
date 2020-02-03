@@ -1,12 +1,15 @@
-const { date } = require('../utils');
+const { date, fridaySnippet } = require('../utils');
 const { Event, Embed } = require('discore.js');
 
 class MyEvent extends Event {
     run(guild) {
+        let servers = this.client.guilds.size;
+        let nouns = ['сервер', 'сервера', 'серверов'];
+        
         let embed = new Embed()
             .setColor("#7289DA")
             .setTitle("Новый сервер")
-            .setDescription(`Меня добавили на сервер ${guild.name} (ID: ${guild.id}).`)
+            .setDescription(`Меня добавили на сервер ${guild.name} (ID: ${guild.id}).\nЯ есть на ${servers} ${fridaySnippet(servers, ...nouns)}.`)
             .addField("Администратор", `${guild.owner.user} (ID: ${guild.owner.user.id})`)
             .addField("Дата создания", date(guild.createdAt).locale("ru").format("LLLL"))
     
