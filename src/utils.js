@@ -1,3 +1,4 @@
+const Neko = require('nekos.life');
 const { Embed } = require('discore.js');
 
 var tiers = {
@@ -11,6 +12,7 @@ module.exports = {
     tiers: tiers,
     toMS: require('ms'),
     date: require('moment'),
+    neko: new Neko(),
     generateID: (length) => {
         var result           = '';
         var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
