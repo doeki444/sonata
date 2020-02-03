@@ -4,12 +4,13 @@ const { Event, Embed } = require('discore.js');
 class MyEvent extends Event {
     run(guild) {
         let servers = this.client.guilds.size;
-        let nouns = ['сервер', 'сервера', 'серверов'];
+        let nouns = ['сервере', 'серверах', 'серверах'];
         
         let embed = new Embed()
             .setColor("#7289DA")
             .setTitle("Старый сервер")
             .setDescription(`Меня удалили с сервера ${guild.name} (ID: ${guild.id}).\nЯ есть на ${servers} ${fridaySnippet(servers, ...nouns)}.`)
+            .setThumbnail(guild.iconURL)
             .addField("Администратор", `${guild.owner.user} (ID: ${guild.owner.user.id})`)
             .addField("Дата создания", date(guild.createdAt).locale("ru").format("LLLL"))
     
