@@ -21,7 +21,7 @@ class MyCommand extends Command {
     async run(message, args) {
 		let member = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
 		if(!member)
-			return utils.error(message, 'NO_ARGS`, { usage: `${this.client.prefix + this.options.name} ${this.options.usage}` });
+			return utils.error(message, 'NO_ARGS', { usage: `${this.client.prefix + this.options.name} ${this.options.usage}` });
 	
         let embed = new Embed()
         	.setColor('#7289DA')
