@@ -48,7 +48,7 @@ class MyCommand extends Command {
             if(commands.games) embed.addField('Игры', commands.games);
             if(commands.other) embed.addField('Прочее', commands.other);
 
-            embed.addField(`Прочая информация`, `[• Open-Source](https://sonata.org.ru/github) | [• Discord](https://sonata.org.ru/discord) | [• Invite](https://sonata.org.ru/invite)`);
+            embed.addField(`Прочая информация`, `VimeWorld: \`${this.client.prefix.replace('.', 'v.')}help\`\n[• Open-Source](https://sonata.org.ru/github) | [• Discord](https://sonata.org.ru/discord) | [• Invite](https://sonata.org.ru/invite)`);
             return message.channel.send(embed);
         } else {
             let command = this.client.commands.get(args.join(" "));
