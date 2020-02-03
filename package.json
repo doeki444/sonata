@@ -25,6 +25,7 @@
     "moment-duration-format": "^2.3.2",
     "ms": "^2.1.2",
     "mysql2": "^2.1.0",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "vimestats": "github:vladciphersky/vimestats-v2"
   }
 }
