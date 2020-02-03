@@ -19,10 +19,11 @@ class MyCommand extends Command {
     }
 
     async run(message, args) {
-		    let embed = new Embed()
+		let img = await utils.neko.sfw.smug();
+		let embed = new Embed()
         	.setColor('#7289DA')
             .setAuthor(`${message.author.username} смущается`, message.author.displayAvatarURL)
-            .setImage(await utils.neko.sfw.smug().url);
+            .setImage(img.url);
 
         return message.channel.send(embed);
     }

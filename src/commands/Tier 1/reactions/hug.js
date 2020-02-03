@@ -23,10 +23,11 @@ class MyCommand extends Command {
 		if(!member)
 			return utils.error(message, 'NO_ARGS', { usage: `${this.client.prefix + this.options.name} ${this.options.usage}` });
 	
+		let img = await utils.neko.sfw.hug();
         let embed = new Embed()
         	.setColor('#7289DA')
             .setAuthor(`${message.author.username} обнял ${member.user.username}`, message.author.displayAvatarURL)
-            .setImage(await utils.neko.sfw.hug().url);
+            .setImage(img.url);
 
         return message.channel.send(embed);
     }
