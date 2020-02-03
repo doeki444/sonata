@@ -57,7 +57,7 @@ class MyCommand extends Command {
         let embed = new Embed()
             .setColor('#00FF00')
             .setDescription(`:white_check_mark: ${message.author} очистил чат${user ? ` от сообщений пользователя ${user} (ID: ${user.user.id})` : ''}.`)
-            .addField('Кол-во удалённых сообщений', displayText);
+            .addField('Кол-во удалённых сообщений', `${amount} ${displayText}`);
 
         return message.channel.send(embed);
     }
