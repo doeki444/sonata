@@ -1,4 +1,4 @@
-const { date, fridaySnippet } = require('../../utils');
+const { date, fridaySnippet, error } = require('../../utils');
 const { Command, Embed } = require('discore.js');
 
 class MyCommand extends Command {
@@ -21,7 +21,7 @@ class MyCommand extends Command {
     run(message, args) {
         let bug = args.join(" ");
         if(!bug)
-            return utils.error(message, 'NO_ARGS', { usage: `${this.client.prefix + this.options.name} ${this.options.usage}` });
+            return error(message, 'NO_ARGS', { usage: `${this.client.prefix + this.options.name} ${this.options.usage}` });
 
         let guild = message.guild;
         let servers = this.client.guilds.size;
