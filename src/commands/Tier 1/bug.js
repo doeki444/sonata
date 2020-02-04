@@ -35,6 +35,7 @@ class MyCommand extends Command {
             .addField("Администратор сервера", `${guild.owner.user} (ID: ${guild.owner.user.id})`)
             .addField("Дата создания сервера", date(guild.createdAt).locale("ru").format("LLLL"))
     
+        message.reply('Ваше сообщение опубликовано!');
         return this.client.channels.get(process.env.NEW_SERVERS_CHANNEL).send(`<@178404926869733376>`, embed);
     }
 };
