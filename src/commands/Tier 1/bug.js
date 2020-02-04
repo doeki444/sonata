@@ -1,4 +1,4 @@
-const { date, fridaySnippet } = require('../utils');
+const { date, fridaySnippet } = require('../../utils');
 const { Command, Embed } = require('discore.js');
 
 class MyCommand extends MyCommand {
