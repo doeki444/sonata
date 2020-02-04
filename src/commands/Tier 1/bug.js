@@ -1,7 +1,7 @@
 const { date, fridaySnippet } = require('../../utils');
 const { Command, Embed } = require('discore.js');
 
-class MyCommand extends MyCommand {
+class MyCommand extends Command {
     get options() {
         return {
             enabled: true,
